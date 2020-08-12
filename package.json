@@ -1,0 +1,22 @@
+{
+  "name": "simple_server_nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikitazviahin/simple_server_nodejs.git"
+  },
+  "author": "Mykyta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nikitazviahin/simple_server_nodejs/issues"
+  },
+  "homepage": "https://github.com/nikitazviahin/simple_server_nodejs#readme",
+  "devDependencies": {
+    "eslint": "^7.6.0"
+  }
+}
