@@ -7,22 +7,15 @@ if (cluster.isMaster) {
   console.log('CPUs: ', cpusCount);
   console.log('Master started. Pid: ', pid);
   for (let i = 0; i < cpusCount-1; i++) {
-    const worker = cluster.fork();
-    worker.on('exit', () => {
-      console.log('Worker died! Pid: ', worker.process.pid);
-      cluster.fork();
-    })
-    worker.send('Hello from server');
-    worker.on('message', (msg) => {
-      console.log('Message from worker: ', worker.process.pid ,JSON.stringify(msg));
-    })
+    cluster.fork();
   }
+  cluster.on('exit', (worker, code) => {
+      console.log('Worker died! Pid: ', worker.process.pid,'Code ', code);
+      if (code === 1){
+        cluster.fork();
+      }
+    });
 }
-
 if (cluster.isWorker) {
   require('./main.js');
-  process.on('message', (msg) => {
-    console.log('Message from master: ', msg);
-  })
-  process.send({text:'Hello', pid});
 }

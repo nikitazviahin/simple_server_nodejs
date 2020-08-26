@@ -9,7 +9,28 @@ const requestListener = (req,res) => {
 }
 
 const listeningListener = () => {
-  console.log('Server started. Pid: ',pid);
+  console.log('Worker started. Pid: ',pid);
 }
 
-http.createServer(requestListener).listen( port, listeningListener );
+const server = http.createServer(requestListener).listen( port, listeningListener );
+
+process.on('SIGINT', () => {
+  console.log('SIGINT recieved');
+  server.close( () => {
+    process.exit(0);
+  })
+});
+
+process.on('SIGTERM', () => {
+  console.log('SIGTERM recieved');
+  server.close( () => {
+    process.exit(0);
+  })
+});
+
+process.on('SIGUSR2', () => {
+  console.log('SIGUSR2 recieved');
+  server.close( () => {
+    process.exit(1);
+  })
+});
